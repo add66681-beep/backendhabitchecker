@@ -5,14 +5,15 @@ import authRoutes from './routes/auth.js';
 import dataRoutes from './routes/data.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const MONGO_URI = 'mongodb+srv://adarsh7:adarsh7@cluster0.hmfgctc.mongodb.net/habittracker?appName=Cluster0';
+// Use environment variable for security, fallback for local dev
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://adarsh7:adarsh7@cluster0.hmfgctc.mongodb.net/habittracker?appName=Cluster0';
 
 mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB Connected Successfully'))
